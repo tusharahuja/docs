@@ -1,6 +1,6 @@
 FROM node:18-slim as base
 
-RUN npm install -g npm@8
+RUN npm install -g npm@9
 WORKDIR /app
 COPY . .
 
