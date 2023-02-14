@@ -7,6 +7,10 @@ COPY . .
 
 FROM base as dependencies
 
+RUN apt-get update || : && apt-get install -y \
+    python \
+    build-essential
+
 ARG NPM_TOKEN
 RUN npm run setup
 
