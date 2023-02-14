@@ -25,7 +25,7 @@ Assume that your cluster is on an account called `development` and is being acce
 -   BigAnimal cluster:
     -   AWS account: `development`
     -   Amazon resource name (ARN): `arn:aws:iam::123456789123:root`
-    -   Cluster ID: `p-c4j0jfcmp3af2ieok5eg` 
+    -   Cluster ID: `p-mckwlbakq5` 
     -   Account ID: `brcxzr08qr7rbei1` 
     -   Organization's domain name: `biganimal.io`
 
@@ -50,9 +50,7 @@ In the AWS account connected to BigAnimal, create an endpoint service to provide
 
 1. In the navigation pane, under **Load Balancing**, select **Load Balancers**.
 
-1. You can see a list of load balancers, and each load balancer is tagged with the ID of the cluster to which it is deployed (`service.k8s.aws/stack: default/<cluster_ID>`). For example, `service.k8s.aws/stack: default/p-c4j0jfcmp3af2ieok5eg`.
-
-1. Identify the load balancer that is tagged with the ID of the cluster to which you want to connect. Note the name of that network load balancer.
+1. Identify the load balancer that is tagged with the ID of the cluster to which you want to connect (`<cluster-id>-rw-internal-lb`). For example, `p-96fh28m3cb-rw-internal-lb`. Note the name of that network load balancer.
 
 1. Open the [Amazon VPC console](https://console.aws.amazon.com/vpc/). 
 
@@ -114,7 +112,8 @@ Now that your endpoint service is created, you can connect it to the cluster VPC
  In your application's AWS account, select **VPC** and then select **Endpoints**. Select the endpoint you created previously and use the DNS name provided in the details section to access your cluster.
 
     ```shell     
-    psql -h vpce-XXXXXXXXXXXXXXXXXXXX.eu-west-1.vpce.amazonaws.com -U edb_admin      
+    # Replace the port 5432 below if that has been changed in the Big Animal DB Configuration
+    psql -h vpce-XXXXXXXXXXXXXXXXXXXX.eu-west-1.vpce.amazonaws.com -U edb_admin -p 5432     
     __OUTPUT__
     Password for user edb_admin: 
 

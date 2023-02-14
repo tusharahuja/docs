@@ -1,7 +1,19 @@
 {% extends "platformBase/" + platformBaseTemplate + '.njk' %}
 {% set packageName %}edb-pem{% endset %}
+{% import "platformBase/_deploymentConstants.njk" as deploy %}
+{% block frontmatter %}
+{# 
+  If you modify deployment path here, please first copy the old expression
+  and add it to the list under "redirects:" below - this ensures we don't 
+  break any existing links.  
+#}
+deployPath: pem/{{ product.version }}/installing/linux_{{platform.arch}}/pem_{{deploy.map_platform[platform.name]}}.mdx
+redirects:
+  - pem/{{ product.version }}/installing_pem_server/pem_server_inst_linux/installing_pem_server_using_edb_repository/{{deploy.expand_arch[platform.arch]}}/pem_server_{{deploy.map_platform_old[platform.name]}}_{{platform.arch | replace(r/_?64/g, "")}}.mdx
+{% endblock frontmatter %}
+
 {% block prodprereq %}
-- Review the [prerequisites](/pem/latest/installing_pem_server/pem_server_inst_linux/prerequisites/).
+- Review the [prerequisites](/pem/latest/installing/prerequisites/).
 
 {% endblock prodprereq %}{% block pemprereq %}{% endblock pemprereq %}{% block pemsetuprepo %}{% endblock pemsetuprepo %}
 {% block postinstall %}
@@ -12,7 +24,7 @@
 sudo /usr/edb/pem/bin/configure-pem-server.sh
 ```
 
-For more details, see [Configuring the PEM server on Linux](/pem/latest/installing_pem_server/pem_server_inst_linux/configuring_the_pem_server_on_linux/).
+For more details, see [Configuring the PEM server on Linux](/pem/latest/installing/configuring_the_pem_server_on_linux/).
 
 !!! Note
     
